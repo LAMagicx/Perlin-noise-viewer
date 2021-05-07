@@ -19,8 +19,6 @@ def showMontain(world, lines = 10, den = 10):
     w,h = world.shape
     screen = pygame.Surface(world.shape)
 
-    
-
     screen.fill([255,255,255])
 
     for i in range(h//lines):
@@ -34,6 +32,20 @@ def showMontain(world, lines = 10, den = 10):
 
     pygame.image.save(screen, "mountain.png")
 
+
+def createFile(world, name="in.txt") : 
+
+    w,h = world.shape
+    txt = ""
+
+    for y in range(h):
+        for x in range(w):
+            txt += str(round(maps(world[y][x], 256, 0, 0, 1))) + " "
+        txt += "\n"
+
+    with open(name, "w+") as f:
+        f.truncate()
+        f.write(txt)
 
 
 def Create(shape=(100,100), base=0, size=1, scale = 50.0, level_of_detail = 9, amplitude = 0.5, diff_detail = 2, color = 'L', z=0):
@@ -71,7 +83,8 @@ def Create(shape=(100,100), base=0, size=1, scale = 50.0, level_of_detail = 9, a
     else:
         lines = 10
 
-    showMontain(world, lines = lines)
+    # showMontain(world, lines = lines)
+    createFile(world)
 
     return img
 
